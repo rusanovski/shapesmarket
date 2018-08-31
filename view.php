@@ -22,50 +22,21 @@
         </header>
 
         <main>
-            <div class="item" data-type="triangle" data-color="purple" data-stroke="1">
-                <table>
+            <?php $first = true; while ($item = mysqli_fetch_object($shapes)) : ?>
+                <?php if (!$first) { ?></div><?php } ?><div class="item"
+                     data-type="<?php echo $item->type; ?>"
+                     data-color="<?php echo $item->color; ?>"
+                     data-size="<?php echo $item->size; ?>"
+                     data-stroke="<?php echo $item->stroke; ?>">
+
                     <figure><var></var><i></i></figure>
-                    <tr>
-                        <td>Price: <b>120 $</b></td>
-                        <td align="right"><button>BUY</button></td>
-                    </tr>
-                </table>
 
-            </div><div class="item" data-type="circle" data-color="yellow" data-size="XL">
-                <figure><var></var><i></i></figure>
-                <table><tr>
-                    <td>Price: <b>140 $</b></td>
-                    <td align="right"><button>BUY</button></td>
-                </tr></table>
-
-            </div><div class="item" data-type="rectangle" data-color="orange" data-size="L" data-stroke="1">
-                <figure><var></var><i></i></figure>
-                <table><tr>
-                    <td>Price: <b>90 $</b></td>
-                    <td align="right"><button>BUY</button></td>
-                </tr></table>
-
-            </div><div class="item" data-type="triangle" data-color="blue" data-size="M">
-                <figure><var></var><i></i></figure>
-                <table><tr>
-                    <td>Price: <b>120 $</b></td>
-                    <td align="right"><button>BUY</button></td>
-                </tr></table>
-
-            </div><div class="item" data-type="circle" data-color="green" data-size="L">
-                <figure><var></var><i></i></figure>
-                <table><tr>
-                        <td>Price: <b>140 $</b></td>
+                    <table><tr>
+                        <td>Price: <b><?php echo $item->price; ?> $</b></td>
                         <td align="right"><button>BUY</button></td>
                     </tr></table>
 
-            </div><div class="item" data-type="rectangle" data-color="red" data-size="XL">
-                <figure><var></var><i></i></figure>
-                <table><tr>
-                    <td>Price: <b>90 $</b></td>
-                    <td align="right"><button>BUY</button></td>
-                </tr></table>
-
+            <?php $first = false; endwhile; ?>
             </div>
         </main>
 
