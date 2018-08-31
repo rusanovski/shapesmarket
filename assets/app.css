@@ -1,0 +1,87 @@
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #607d8b;
+    color: #f9f9f9;
+}
+
+b {
+    font-weight: bold;
+}
+
+section#app {
+    width: 780px;
+    margin: auto;
+    padding: 42px 18px 72px 18px;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: lighter;
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+main {
+    display: inline-block;
+    vertical-align: top;
+    width: 600px;
+}
+
+main > .item {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    width: 200px;
+    height: 200px;
+    border-right: 1px dashed #9e9e9e;
+    border-top: 1px dashed #9e9e9e;
+}
+main > .item:nth-child(3n) {
+    border-right: 0;
+}
+main > .item:nth-child(1),
+main > .item:nth-child(2),
+main > .item:nth-child(3) {
+    border-top: 0;
+}
+
+main > .item > figure {
+    margin: 20px auto;
+    width: 140px;
+    height: 120px;
+    text-align: center;
+}
+main > .item > figure:before {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+main > .item > figure > var {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+aside {
+    display: inline-block;
+    vertical-align: top;
+}
+
+main > .item > table {
+    margin: 12px 24px;
+    width: 152px;
+    width: calc(100% - 48px);
+}
