@@ -49,6 +49,12 @@ main > .item[data-type=triangle][data-size=L] > figure > i {
 }
 
 /* Triangle Strokes */
+main > .item[data-type=triangle][data-stroke="0"] > figure > var:before { top: 0; }
+main > .item[data-type=triangle][data-stroke="0"] > figure > i {
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
 main > .item[data-type=triangle][data-stroke="1"] > figure > var:before { top: 2px; }
 main > .item[data-type=triangle][data-stroke="1"] > figure > i {
     border-bottom-width: 1px;
@@ -86,7 +92,7 @@ main > .item[data-type=triangle][data-stroke="32"] > figure > i {
     border-right-width: 28px;
 }
 
-
+/* Triangles */
 main > .item[data-type=triangle] > figure {
     position: relative;
     width: 140px;

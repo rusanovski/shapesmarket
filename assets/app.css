@@ -71,6 +71,12 @@ main > .item:nth-child(3) {
     border-top: 0;
 }
 
+main > .item > table {
+    margin: 12px 24px;
+    width: 152px;
+    width: calc(100% - 48px);
+}
+
 main > .item > figure {
     margin: 20px auto;
     width: 140px;
@@ -97,10 +103,6 @@ aside {
     margin-left: 20px;
 }
 
-.filter {margin-bottom: 24px;}
-
-main > .item > table {
-    margin: 12px 24px;
-    width: 152px;
-    width: calc(100% - 48px);
+.filter-group {
+    margin-bottom: 24px;
 }

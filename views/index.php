@@ -1,3 +1,5 @@
+<?php if (__VER === '__VER') { http_response_code(404); exit; } ?>
+
 <!doctype html>
 
 <html lang="en">
@@ -26,19 +28,7 @@
         </main>
 
         <aside>
-
-            <form>
-                <?php foreach ($config['fields'] as $field => $values) : ?>
-                    <div class="filter">
-                        <h4><?php echo $field; ?></h4>
-                        <?php foreach ($values as $value) : ?>
-                            <input type="checkbox" name="type[]" value="<?php echo $value; ?>">
-                            <label for="type_<?php echo $value; ?>"><?php echo ucfirst($value); ?></label><br>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endforeach; ?>
-            </form>
-
+            <?php include 'filters.php'; ?>
         </aside>
     </section>
 

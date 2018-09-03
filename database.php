@@ -1,4 +1,4 @@
-<?php
+<?php if (__VER === '__VER') { http_response_code(404); exit; }
 
     $migration = [
         'id' => "INT(11) NOT NULL AUTO_INCREMENT",

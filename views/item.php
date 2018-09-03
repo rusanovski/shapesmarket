@@ -1,3 +1,5 @@
+<?php if (__VER === '__VER') { http_response_code(404); exit; } ?>
+
 <?php $i = 0; while ($item = mysqli_fetch_object($shapes)) : ?>
 <?php if ($i !== 0) { ?></div><?php } ?><div class="item"
     data-type="<?php echo $item->type; ?>"
