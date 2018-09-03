@@ -11,7 +11,12 @@
 
     <table><tr>
         <td>Price: <b><?php echo $item->price; ?> $</b></td>
-        <td align="right"><button>BUY</button></td>
+        <td align="right">
+            <form method="POST">
+                <button onclick="buy(event, this.parentNode);">BUY</button>
+                <input name="delete" type="hidden" value="<?php echo $item->id; ?>">
+            </form>
+        </td>
     </tr></table>
 
 <?php $i++; endwhile; ?>
