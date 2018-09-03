@@ -1,27 +1,15 @@
 <?php
 
-    $config = [
-        'host' => '127.0.0.1',
-        'user' => 'root',
-        'password' => 'password',
-        'database' => 'shapemarket',
-        'table' => 'shapes',
-
-        'types' => ['circle', 'triangle', 'rectangle'],
-        'colors' => ['red', 'green', 'blue', 'purple', 'yellow', 'orange'],
-        'sizes' => ['M', 'L', 'XL'],
-    ];
-
     $migration = [
         'id' => "INT(11) NOT NULL AUTO_INCREMENT",
-        'type' => "ENUM('". implode("','", $config['types']). "')",
-        'color' => "ENUM('". implode("','", $config['colors']). "')",
-        'size' => "ENUM('". implode("','", $config['sizes']). "')",
+        'type' => "ENUM('". implode("','", $config['fields']['type']). "')",
+        'color' => "ENUM('". implode("','", $config['fields']['color']). "')",
+        'size' => "ENUM('". implode("','", $config['fields']['size']). "')",
         'stroke' => "INT(11) NULL",
         'price' => "INT(11) NOT NULL DEFAULT 0",
     ];
 
-    $link = mysqli_connect($config['host'], $config['user'], $config['password'], $config['database']);
+    $link = mysqli_connect($config['db']['host'], $config['db']['user'], $config['db']['password'], $config['db']['database']);
 
     if ($_GET['action'] === 'migration') {
 
@@ -30,7 +18,7 @@
             $fields[] = "$name $type";
         $fields = implode(',', $fields);
 
-        $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS $config[table] ($fields, PRIMARY KEY (id));");
+        $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS ". $config['db']['table']. " ($fields, PRIMARY KEY (id));");
 
         if ($result) echo 'Migration successful!';
         else { echo "Error: Migration failed."; http_response_code(400); }
@@ -46,9 +34,9 @@
         $columns = [];
         for ($i = 0; $i < $count; $i++) {
             $column = [
-                $config['types'][mt_rand(0, count($config['types']) -1)],
-                $config['colors'][mt_rand(0, count($config['colors']) -1)],
-                $config['sizes'][mt_rand(0, count($config['sizes']) -1)],
+                $config['fields']['type'][mt_rand(0, count($config['fields']['type']) -1)],
+                $config['fields']['color'][mt_rand(0, count($config['fields']['color']) -1)],
+                $config['fields']['size'][mt_rand(0, count($config['fields']['size']) -1)],
                 null,
                 mt_rand(1, 100) * 90
             ];
@@ -66,7 +54,7 @@
         $fields = implode(',', $fields);
         $columns = implode(",\r\n", $columns);
 
-        $query = "INSERT INTO $config[table] ($fields) VALUES $columns;";
+        $query = "INSERT INTO ". $config['db']['table']. " ($fields) VALUES $columns;";
 
         $result = mysqli_query($link, $query);
 

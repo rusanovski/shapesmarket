@@ -22,54 +22,23 @@
         </header>
 
         <main>
-            <?php $first = true; while ($item = mysqli_fetch_object($shapes)) : ?>
-                <?php if (!$first) { ?></div><?php } ?><div class="item"
-                     data-type="<?php echo $item->type; ?>"
-                     data-color="<?php echo $item->color; ?>"
-                     data-size="<?php echo $item->size; ?>"
-                     data-stroke="<?php echo $item->stroke; ?>">
-
-                    <figure><var></var><i></i></figure>
-
-                    <table><tr>
-                        <td>Price: <b><?php echo $item->price; ?> $</b></td>
-                        <td align="right"><button>BUY</button></td>
-                    </tr></table>
-
-            <?php $first = false; endwhile; ?>
-            </div>
+            <?php include 'item.php'; ?>
         </main>
 
         <aside>
+
             <form>
-                <div class="filter-section">
-                    <h4>CORNERS COUNT</h4>
-
-                    <input type="checkbox" name="type[]" value="circle">
-                    <input type="checkbox" name="type[]" value="triangle">
-                    <input type="checkbox" name="type[]" value="rectangle">
-                </div>
-
-                <div class="filter-section">
-                    <h4>COLOR</h4>
-
-                    <input type="checkbox" name="colors[]" value="red">
-                    <input type="checkbox" name="colors[]" value="green">
-                    <input type="checkbox" name="colors[]" value="blue">
-                </div>
-
-                <div class="filter-section">
-                    <h4>STROKE</h4>
-
-                    <input type="checkbox" name="stoke[]" value="1">
-                    <input type="checkbox" name="stoke[]" value="2">
-                    <input type="checkbox" name="stoke[]" value="4">
-                    <input type="checkbox" name="stoke[]" value="8">
-                    <input type="checkbox" name="stoke[]" value="16">
-                    <input type="checkbox" name="stoke[]" value="32">
-                </div>
-
+                <?php foreach ($config['fields'] as $field => $values) : ?>
+                    <div class="filter">
+                        <h4><?php echo $field; ?></h4>
+                        <?php foreach ($values as $value) : ?>
+                            <input type="checkbox" name="type[]" value="<?php echo $value; ?>">
+                            <label for="type_<?php echo $value; ?>"><?php echo ucfirst($value); ?></label><br>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
             </form>
+
         </aside>
     </section>
 

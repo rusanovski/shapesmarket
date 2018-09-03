@@ -8,6 +8,20 @@ b {
     font-weight: bold;
 }
 
+h4 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #9E9E9E;
+    margin-bottom: 12px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
 section#app {
     width: 780px;
     margin: auto;
@@ -16,6 +30,7 @@ section#app {
 
 header {
     text-align: center;
+    margin-bottom: 48px;
 }
 
 h1 {
@@ -78,7 +93,11 @@ main > .item > figure > var {
 aside {
     display: inline-block;
     vertical-align: top;
+    width: 154px;
+    margin-left: 20px;
 }
+
+.filter {margin-bottom: 24px;}
 
 main > .item > table {
     margin: 12px 24px;

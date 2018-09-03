@@ -15,4 +15,4 @@
     }
     if ($where) $where = "WHERE $where";
 
-    $shapes = mysqli_query($link, "SELECT * FROM $config[table] $where;");
+    $shapes = mysqli_query($link, "SELECT * FROM ". $config['db']['table']. " $where;");

@@ -1,6 +1,7 @@
 <?php
     define('__VER', '1.0');
 
-    include_once 'database.php';
-    include_once 'controller.php';
-    include_once 'view.php';
+    include 'configuration.php';
+    include 'database.php';
+    include 'controller.php';
+    include 'views/index.php';
