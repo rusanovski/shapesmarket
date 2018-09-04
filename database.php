@@ -11,56 +11,59 @@
 
     $link = mysqli_connect($config['db']['host'], $config['db']['user'], $config['db']['password'], $config['db']['database']);
 
-    if ($_GET['action'] === 'migration') {
+    if (isset($_GET['action'])) {
 
-        $fields = [];
-        foreach ($migration as $name => $type)
-            $fields[] = "$name $type";
-        $fields = implode(',', $fields);
+        if ($_GET['action'] === 'migration') { // Migration. Create db table if not exists.
 
-        $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS ". $config['db']['table']. " ($fields, PRIMARY KEY (id));");
+            $fields = [];
+            foreach ($migration as $name => $type)
+                $fields[] = "$name $type";
+            $fields = implode(',', $fields);
 
-        if ($result) echo 'Migration successful!';
-        else { echo "Error: Migration failed."; http_response_code(400); }
+            $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS ". $config['db']['table']. " ($fields, PRIMARY KEY (id));");
 
-        exit;
+            if ($result) echo 'Migration successful!';
+            else { echo "Error: Migration failed."; http_response_code(400); }
 
-    } elseif ($_GET['action'] === 'seed') {
+            exit;
 
-        $count = mt_rand(90, 900);
-        $fields = array_keys($migration);
-        if ($fields[0] === 'id') unset($fields[0]);
+        } elseif ($_GET['action'] === 'seed') { // Seeding. Randomly fill rows in migrated table.
 
-        $columns = [];
-        for ($i = 0; $i < $count; $i++) {
-            $column = [
-                $config['fields']['type'][mt_rand(0, count($config['fields']['type']) -1)],
-                $config['fields']['color'][mt_rand(0, count($config['fields']['color']) -1)],
-                $config['fields']['size'][mt_rand(0, count($config['fields']['size']) -1)],
-                null,
-                mt_rand(1, 100) * 90
-            ];
+            $count = mt_rand(90, 900);
+            $fields = array_keys($migration);
+            if ($fields[0] === 'id') unset($fields[0]);
 
-            $exp = ($column[0] === 'triangle' && in_array($column[2], ['M', 'L'])) ? mt_rand(-1, 3) :
-                (($column[0] !== 'triangle' && $column[2] === 'M') ? mt_rand(-1, 4) : mt_rand(-1, 5));
-            if ($exp < 0) $column[3] = 0;
-            else $column[3] = pow(2, $exp);
+            $columns = [];
+            for ($i = 0; $i < $count; $i++) {
+                $column = [
+                    $config['fields']['type'][mt_rand(0, count($config['fields']['type']) -1)],
+                    $config['fields']['color'][mt_rand(0, count($config['fields']['color']) -1)],
+                    $config['fields']['size'][mt_rand(0, count($config['fields']['size']) -1)],
+                    null,
+                    mt_rand(1, 100) * 90
+                ];
 
-            foreach ($column as &$value)
-                if (gettype($value) === 'string') $value = "'$value'";
+                $exp = ($column[0] === 'triangle' && in_array($column[2], ['M', 'L'])) ? mt_rand(-1, 3) :
+                    (($column[0] !== 'triangle' && $column[2] === 'M') ? mt_rand(-1, 4) : mt_rand(-1, 5));
+                if ($exp < 0) $column[3] = 0;
+                else $column[3] = pow(2, $exp);
 
-            $columns[] = '('. implode(',', $column). ')';
+                foreach ($column as &$value)
+                    if (gettype($value) === 'string') $value = "'$value'";
+
+                $columns[] = '('. implode(',', $column). ')';
+            }
+            $fields = implode(',', $fields);
+            $columns = implode(",\r\n", $columns);
+
+            $query = "INSERT INTO ". $config['db']['table']. " ($fields) VALUES $columns;";
+
+            $result = mysqli_query($link, $query);
+
+            if ($result) echo "Seed successful! Rows added: $count.";
+            else { echo "Error: Seed failed."; http_response_code(400); }
+
+            exit;
+
         }
-        $fields = implode(',', $fields);
-        $columns = implode(",\r\n", $columns);
-
-        $query = "INSERT INTO ". $config['db']['table']. " ($fields) VALUES $columns;";
-
-        $result = mysqli_query($link, $query);
-
-        if ($result) echo "Seed successful! Rows added: $count.";
-        else { echo "Error: Seed failed."; http_response_code(400); }
-
-        exit;
-
     }

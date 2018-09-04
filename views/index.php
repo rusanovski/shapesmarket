@@ -24,7 +24,7 @@
         </header>
 
         <main>
-            <?php include 'item.php'; ?>
+            <?php include 'items.php'; ?>
         </main>
 
         <aside>

@@ -8,6 +8,10 @@ b {
     font-weight: bold;
 }
 
+p {
+    text-align: center;
+}
+
 h4 {
     text-transform: uppercase;
     font-weight: bold;
@@ -69,6 +73,12 @@ main > .item:nth-child(1),
 main > .item:nth-child(2),
 main > .item:nth-child(3) {
     border-top: 0;
+}
+main > .item.animate {
+    transition: 1s;
+    position: relative;
+    z-index: 1;
+    transform: scale(100);
 }
 
 main > .item > table {

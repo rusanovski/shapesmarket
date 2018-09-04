@@ -20,4 +20,6 @@
     </tr></table>
 
 <?php $i++; endwhile; ?>
-<?php if ($i !== 0) { ?></div><?php } ?>
+<?php if ($i !== 0) { ?></div><?php } else { ?>
+    <p>Nothing to be had.</p>
+<?php } ?>
